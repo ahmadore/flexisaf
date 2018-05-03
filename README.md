@@ -31,6 +31,9 @@ run commands
 ## Work Flow
 1) Go to the index page
    ![Alt text](https://github.com/ahmadore/flexisaf/tree/master/screens/index.png "index")
+   <p align="center">
+     <img src="screens/index.png" width="350"/>
+   </p>
 
 2) signup as admin or staff
    ![Alt text](/screen/account_type.png?raw=true "Account Type")
