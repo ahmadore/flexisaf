@@ -93,7 +93,7 @@ def signup(request, role):
             user = userform.save()
             user = authenticate(password=userform.cleaned_data.get('password1'), username=userform.cleaned_data.get('username'))
             login(request, user)
-            return redirect(index)
+            return redirect(update_profile)
         else:
             return render(request, 'signup.html', {'userform': userform})
     else:
