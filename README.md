@@ -9,7 +9,8 @@
 ## How to deploy
 1) git clone https://github.com/ahmadore/flexisaf
 
-2) run pip install -r requirements.txt
+
+2) install python 3 and pip install -r requirements.txt
 
 3) start mysql server
 
