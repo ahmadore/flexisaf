@@ -30,7 +30,7 @@ run commands
 
 ## Work Flow
 1) Go to the index page
-   ![Alt text](/screen/index.png?raw=true "index")
+   ![Alt text](https://github.com/ahmadore/flexisaf/tree/master/screens/index.png?raw=true "index")
 
 2) signup as admin or staff
    ![Alt text](/screen/account_type.png?raw=true "Account Type")
