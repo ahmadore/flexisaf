@@ -30,23 +30,28 @@ run commands
 
 ## Work Flow
 1) Go to the index page
-   <- show screenshot
+   ![Alt text](/screen/index.png?raw=true "index")
 
 2) signup as admin or staff
+   ![Alt text](/screen/account_type.png?raw=true "Account Type")
 
 3) update profile
-
-    a. upload picture
+![Alt text](/screen/update.png?raw=true "Update Profile")    a. upload picture
     b. add skills
     c. add interests
+    ![Alt text](/screen/addskill.png?raw=true "index")
     d. add position e.g Web  developer, accountant etc
     e. click on update button when you are done
 
 4) redirected to the dashboard
 
-
 5) the difference between the staff and admin dashboard, is the administration option as shown below
 
+![Alt text](/screen/admin.png?raw=true "index")
+![Alt text](/screen/staff.png?raw=true "index")
+
+6) Admin dashboard with user list and search functionality
+![Alt text](/screen/users_search.png?raw=true "index")
 
 ## ERD/Class Diagram for the User model.
 
