@@ -114,7 +114,7 @@
           interest = data.interest;
           if (skills && skills.length){
             renderSkills($('#skills-list'), skills);
-            renderInterest($("#interest", interest));
+            renderInterest($("#interest"), interest);
           };
         $("input[name='skills']").attr('value', JSON.stringify(skills));
         $("input[name='interest']").attr('value', JSON.stringify(interest));
@@ -132,12 +132,14 @@
           var intrst = $('#intF').val();
           $('#intF').val('');
           interest.push(intrst);
-          renderInterest($("#interest"));
+          $("#interest").html('');
+          console.log(intrst)
+          renderInterest($("#interest"), interest);
           $("input[name='interest']").attr('value', JSON.stringify(interest));
+          console.log($("#interest"));
         });
 
         function renderInterest(el, interest){
-          el.html('');
           $.each(interest, function(key, val){
             el.append('<span class="badge badge-pill badge-primary">' + val + '</span>')
           });

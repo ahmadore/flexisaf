@@ -50,7 +50,7 @@ run commands
 
 ## ERD/Class Diagram for the User model.
 
-The django.db.auth.models.AbstractUser was subclassed. This is facilitate for easy extension of the model when business requirements change in the
+The django.db.auth.models.AbstractUser was subclassed. This is to facilitate for easy extension of the model when business requirements change in the
 future.
 
 AbstractUser(Superclass)
