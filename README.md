@@ -30,19 +30,26 @@ run commands
 
 ## Work Flow
 1) Go to the index page
-   ![Alt text](https://github.com/ahmadore/flexisaf/tree/master/screens/index.png "index")
    <p align="center">
-     <img src="screens/index.png" width="350"/>
+     <img src="screens/index.png" width="450"/>
    </p>
 
 2) signup as admin or staff
-   ![Alt text](/screen/account_type.png?raw=true "Account Type")
+   <p align="center">
+     <img src="screens/account_type.png" width="450"/>
+   </p>
 
 3) update profile
-![Alt text](/screen/update.png?raw=true "Update Profile")    a. upload picture
+   <p align="center">
+     <img src="screens/update.png" width="450"/>
+   </p>
+   a. upload picture
     b. add skills
     c. add interests
-    ![Alt text](/screen/addskill.png?raw=true "index")
+    
+    <p align="center">
+     <img src="screens/addskll.png" width="450"/>
+    </p>
     d. add position e.g Web  developer, accountant etc
     e. click on update button when you are done
 
@@ -50,11 +57,18 @@ run commands
 
 5) the difference between the staff and admin dashboard, is the administration option as shown below
 
-![Alt text](/screen/admin.png?raw=true "index")
-![Alt text](/screen/staff.png?raw=true "index")
+<p align="center">
+  <img src="screens/admin.png" width="450"/>
+</p>
+<p align="center">
+  <img src="screens/staff.png" width="450"/>
+</p>
 
 6) Admin dashboard with user list and search functionality
-![Alt text](/screen/users_search.png?raw=true "index")
+
+<p align="center">
+  <img src="screens/users_search.png" width="450"/>
+</p>
 
 ## ERD/Class Diagram for the User model.
 
