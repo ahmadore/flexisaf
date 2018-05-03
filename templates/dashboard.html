@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mb-3">
+<nav class="navbar sticky-top navbar-dark bg-primary">
+    <a class="navbar-brand" href="#!">{{ title }}</a>
+    <div class="text-right">
+        {{ user.username }} as {% if user.is_admin %} Admin {% else %} Staff {% endif %}
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
+            Action
+          </button>
+          <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 38px, 0px); top: 0px; left: 0px; will-change: transform;">
+            <a class="dropdown-item" href="{% url 'update-profile' %}">Edit</a>
+            <a class="dropdown-item" href="{% url 'logout' %}">logout</a>
+            {% if user.is_admin %}
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="{% url 'admin-dashboard' %}">Admin Dashboard</a>
+            {% endif %}
+          </div>
+        </div>
+
+    </div>
+</nav>
+</div>
+
+
+<div class="col-md-12 col-sm-12" style="display:inherit;">
+    <div class="col-md-4">
+        <div class="card card-body">
+        <div class="container">
+            <div class="card">
+                <img class="card-img" src="{% if user.picture %} {{ user.picture }} {% else %} media\uploads\default.jpg {% endif %}" alt="Card image">
+                <div class="card-img-overlay">
+                    <p class="card-text" style="position: absolute;bottom: 0;left: 20px;">{{user.first_name|title}} {{user.last_name|title}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <p><span class="fa fa-briefcase"></span> Web Developer</p>
+            <hr>
+            <p><span class="fa fa-map-marker"></span> {{user.address}}</p>
+            <p><span class="fa fa-phone"></span> {{user.mobile_number}}</p>
+            <p><span class="fa fa-envelope"></span> {{user.email}}</p>
+            <hr  />
+            <div class="list-group">
+                <p>Interests </p>
+                {% for interest in user.interest %}
+                <li class="list-group-item">
+                    {{interest|title}}
+                </li>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <div class="col-md-8">
+        <div class="card card-body">
+            <div class="card-title">Skills</div>
+            <div class="list-group" id="skills">
+            {% for skill in user.skills %}
+                <li class="list-group-item">
+                <div class="progress">
+                  <div class="progress-bar progress-bar-success role="progressbar"
+                  aria-valuenow="{{skill.level}}" aria-valuemin="0" aria-valuemax="100" style="width:{{skill.level}}%">
+                    {{skill.title}} ( {{skill.level}}% proficient)
+                  </div>
+                </div>
+                </li>
+            {% endfor %}
+            </div>
+        </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mb-3">
+<nav class="navbar sticky-top navbar-dark bg-primary">
+    <a class="navbar-brand" href="/">{{ title }}</a>
+    <div class="text-right">
+        <form class="form-inline">
+            <input class="form-control mr-sm-2" type="text" placeholder="Search" name="q">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="button" id="search">Search</button>
+        </form>
+    </div>
+</nav>
+</div>
+
+<div class="col-md-10 col-sm-12">
+    <div class="card card-body" id="main">
+        <span id="main2">
+        <table class="table">
+        <thead class="thead-light">
+          <tr>
+            <th>#</th>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>username</th>
+            <th>Position</th>
+            <th>action</th>
+          </tr>
+        </thead>
+        <tbody id="users">
+
+        </tbody>
+      </table>
+        </span>
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+$(document).ready(function(){
+    $.getJSON('/users/', function(data){
+        $('#users').html('');
+        renderUsers($('#users'), data);
+    });
+
+    //utility for displaying list of users
+    function renderUsers(el, users){
+        $.each(users, function(key, user){
+            el.append(
+                '<tr><td>' + (parseInt(key, 10) + 1) + '</td>' +
+                     '<td>' + user.first_name + '</td>' +
+                     '<td>' + user.last_name + '</td>' +
+                     '<td>' + user.username + '</td>' +
+                     '<td>' + user.position + '</td>' +
+                     '<td><span class="fa fa-info-circle" id="' + user.url + '" ></span></td>' +
+                '</tr>'
+            );
+        });
+    };
+
+    // perform get detail
+    $(document).on('click', 'span', function(){
+        getDetail($(this).attr('id'));
+    });
+
+    // get detail
+    function getDetail(url){
+        $.getJSON(url, function(data){
+            //render User details here
+            $('.table').hide();
+            renderDetail($('#main'), data);
+        });
+    };
+
+    // utility to render user details
+
+    function renderDetail(el, user){
+        el.append(
+            '<div class="row align-item-center justify-content-center">' +
+                '<div class="col-md-6">' +
+                    '<div class="card"><img class="card-img" src="' + user.picture + '" alt="Card image"></div>' +
+                    '<div class="row col-md-12">' +
+                        '<h1>' + user.first_name + '   ' + user.last_name + '</h1><br>' +
+                    '</div>' +
+                '</div>' +
+            '</div>'
+
+        );
+    };
+
+    // Search
+    $('#search').on('click', function(){
+        var q = $('input[name="q"]').val();
+        $.getJSON('/search/?q=' + q, function(data){
+            $('.table').show();
+            $('#users').html('');
+            renderUsers($('#users'), data);
+        });
+    });
+});
+</script>
+
+{% endblock %}

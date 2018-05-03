@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="col-md-10 col-sm-12">
+  <div class="card mb-3">
+    <div class="card-body">
+      <h2>WELCOME TO HUMAN RESOURCE CENTER!!!</h2>
+      <p class="lead">
+        If you already have an account go ahead and <a href="{% url 'login' %}">login</a> else, signup
+        for a <a href="{% url 'signup' 'staff' %}">Staff</a> or <a href="{% url 'signup' 'admin' %}">Admin</a> account.
+      </p>
+      <hr>
+      <h3>What is this about?</h3>
+      <p class="lead">
+        This is a Human resource app, that automates some human resource management process. It includes:
+        <ul>
+          <li>Managing staff biodata, with picture upload</li>
+          <li>Search functionality of staff using different parameters</li>
+          <li>Basic access role feature</li>
+        </ul>
+        Some of the technologies utilized in the realization of the work include, django, jquery and bootstrap...
+      </p>
+    </div>
+  </div>
+</div>
+{% endblock %}

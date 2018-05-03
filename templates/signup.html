@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static widget_tweaks %}
+{% block content %}
+<div class="col-md-10 col-sm-12">
+<div class="card">
+<div class="card-body">
+<form method="POST" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-6">
+        <div class="form-group">
+            <label>First Name</label>
+            {% render_field userform.first_name class+="form-control" %}
+        </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+            <label>Last Name</label>
+            {% render_field userform.last_name class+="form-control" %}
+        </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+            <label>Username</label>
+            {% render_field userform.username class+="form-control" %}
+        </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+            <label>Email</label>
+            {% render_field userform.email class+="form-control" %}
+        </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+            <label>Password</label>
+            {% render_field userform.password1 class+="form-control" %}
+        </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+            <label>Confirm Password</label>
+            {% render_field userform.password2 class+="form-control" %}
+        </div>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Date of Birth</label>
+                {% render_field userform.date_of_birth class+="form-control" type="date" %}
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Phone Number</label>
+                {% render_field userform.mobile_number class+="form-control" %}
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Position</label>
+                {% render_field userform.position class+="form-control" %}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 form-group">
+            <label>Address</label>
+            {% render_field userform.address class+="form-control" rows="3" %}
+        </div>
+    </div>
+    <div class="form-group row">
+        <input class="btn btn-primary" type="submit" value="Enroll">
+    </div>
+</form>
+</div>
+</div>
+</div>
+{% endblock %}
+

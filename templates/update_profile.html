@@ -1,0 +1,200 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="col-md-12 col-sm-12">
+  <div class="card card-body">
+    <div class="row">
+      <div class="col-md-8">
+        <h2>Update profile {{ user.username }}</h2>
+        <span id="user" style="display:none">{{ user.url }}</span>
+      </div>
+      <div class="col-md-4">
+        <div class="card card-body">
+        <div class="container">
+            <div class="card">
+                <img class="card-img" src="{% if user.picture %} {{ user.picture }} {% else %} \media\uploads\default.jpg {% endif %}" alt="Card image">
+                <div class="card-img-overlay">
+                  <span class="fa fa-camera pull-right" id="upload"></span>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="container">
+        <form method="POST" action="{% url 'update-profile' %}" enctype="multipart/form-data">
+        <div class="row">
+        <div class="col-md-4 form-group">
+          <div class="label">First Name</div>
+          {% render_field update_form.first_name class+="form-control" %}
+        </div>
+        <div class="col-md-4 form-group">
+          <div class="label">Last Name</div>
+          {% render_field update_form.last_name class+="form-control" %}
+        </div>
+        <div class="col-md-4 form-group">
+          <div class="label">UserName</div>
+          {% render_field update_form.username class+="form-control" %}
+        </div>
+      </div>
+
+        <div class="row">
+        <div class="col-md-4 form-group">
+          <div class="label">Email</div>
+          {% render_field update_form.email class+="form-control" %}
+        </div>
+        <div class="col-md-4 form-group">
+          <div class="label">Mobile Number</div>
+          {% render_field update_form.mobile_number class+="form-control" %}
+        </div>
+        <div class="col-md-4 form-group">
+          <div class="label">Date of Birth</div>
+          {% render_field update_form.date_of_birth class+="form-control" type="date" %}
+        </div>
+
+        <div class="col-md-12">
+          {% render_field update_form.address class+="form-control" rows="3" %}
+        </div>
+      </div>
+      <hr>
+      <div class="row col-md-12">
+        <div class="col-md-4">
+          <label class="form-label-control">Position</label>
+          {% render_field update_form.position class="form_control" %}
+        </div>
+        <div class="col-md-8">
+          <p>Interest <span class="fa fa-plus" id="addInterest"></span> </p>
+          <span id="interest"></span>
+          <span id="interestForm"></span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+        <table class="table">
+        <thead class="thead-light">
+          <tr>
+            <th>Skill <span class="fa fa-plus" id="addSkill"></span> </th>
+            <th>Level</th>
+            <th>action</th>
+          </tr>
+        </thead>
+        <tbody id="skills-list">
+
+        </tbody>
+      </table>
+        </div>
+        <input type="hidden" name="skills">
+        <input type="hidden" name="interest">
+        <input type="file" name="picture" style="display:none;">
+        <input type="hidden" name="_method" value="PUT">
+        <div class="col-md-12" id="skillForm" style="display:inherit;"></div>
+        <div class="row col-md-12 justify-content-center">
+          <button type="submit" class="btn btn-primary">Update</button>
+        </div>
+      </div>
+      </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    $(document).ready(function(){
+        // get user detail from backend
+        var user = $("#user").text();
+        $.getJSON(user, function(data){
+          skills = data.skills;
+          interest = data.interest;
+          if (skills && skills.length){
+            renderSkills($('#skills-list'), skills);
+            renderInterest($("#interest", interest));
+          };
+        $("input[name='skills']").attr('value', JSON.stringify(skills));
+        $("input[name='interest']").attr('value', JSON.stringify(interest));
+        });
+
+        //to add interest
+        $('#addInterest').on('click', function(){
+          var $interest = $("#interest"),
+              $interestForm = $('#interestForm');
+          $interestForm.html('<input type="text" id="intF"><span id="doneInt" class="fa fa-check"></span>');
+        });
+
+        // done with interest
+        $(document).on('click', '#doneInt', function(){
+          var intrst = $('#intF').val();
+          $('#intF').val('');
+          interest.push(intrst);
+          renderInterest($("#interest"));
+          $("input[name='interest']").attr('value', JSON.stringify(interest));
+        });
+
+        function renderInterest(el, interest){
+          el.html('');
+          $.each(interest, function(key, val){
+            el.append('<span class="badge badge-pill badge-primary">' + val + '</span>')
+          });
+        };
+
+        //to start adding skills
+        $("#addSkill").on('click', function(){
+            renderSkillForm($('#skillForm'));
+        });
+
+        // to add more skills
+        $(document).on('click', '#add', function(){
+          var title = $('#title').val(),
+              level = $('#level').val();
+          skills.push({'title':title, 'level':level});
+          renderSkills($('#skills-list'), skills);
+          renderSkillForm($('#skillForm'));
+        });
+
+        // to end skill addition
+        $(document).on('click', '#done', function(){
+          var title = $('#title').val(),
+              level = $('#level').val();
+          skills.push({'title':title, 'level':level});
+          $('#skillForm').html('');
+          renderSkills($('#skills-list'), skills);
+          $("input[name='skills']").attr('value', JSON.stringify(skills));
+        });
+
+        // trigger the file input field when the camera icon is clicked
+        $("#upload").click(function () {
+          $("input[type='file']").trigger('click');
+        });
+
+        // preview uploaded picture
+        $('input[type="file"]').on('change', function() {
+          $("img").attr('src', URL.createObjectURL($(this)[0].files[0]));
+        });
+
+        // utility to render skills in a table
+        function renderSkills(el, iterable){
+          el.html('');
+          $.each(iterable, function(key, val){
+            el.append('<tr><td>' + val.title + '</td><td>' + val.level + '</td><td><span class="fa fa-trash"></span></td></tr>');
+          });
+        };
+
+        // utility to render skill form
+
+        function renderSkillForm(el){
+          el.html(
+            '<div class="col-md-4 form-group"><input type="text" name="title" class="form-control" id="title"></div>' +
+            '<div class="col-md-4 form-group"><input type="number" max="100" min="20" name="level" class="form-control" id="level"></div>' +
+            '<div class="col-md-4"><span class="fa fa-plus btn btn-primary" id="add"></span><span class="fa fa-check btn btn-primary pull-right" id="done"></span>'
+          );
+        };
+    });
+</script>
+
+{% endblock %}
