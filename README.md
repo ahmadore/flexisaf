@@ -48,7 +48,7 @@ run commands
     c. add interests
     
     <p align="center">
-     <img src="screens/addskll.png" width="450"/>
+     <img src="screens/addskill.png" width="450"/>
     </p>
     d. add position e.g Web  developer, accountant etc
     e. click on update button when you are done
