@@ -1,12 +1,12 @@
-### FLEXISAF TECHNICAL ASSESSMENT ###
+# FLEXISAF TECHNICAL ASSESSMENT
 
 ## Human Resource management app ##
-## features include
-# User accounts
-# Dashboard
-# Access Role
+1) features include
+2) User accounts
+3) Dashboard
+4) Access Role
 
-## How to deploy ##
+## How to deploy
 1) git clone https://github.com/ahmadore/flexisaf
 
 2) start mysql server
@@ -20,9 +20,9 @@ run commands
 
 5) python manage.py migrate
 
-# start server with
+### start server with
 
 6) python manage.py runserver --port
 
-# go to localhost:port/
+### go to localhost:port/
 
