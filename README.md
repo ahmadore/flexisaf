@@ -26,9 +26,9 @@ run commands
 7) python manage.py runserver --port
 
     ### optional for windows users
-    a) double click on setup file
-    b) to start server, double click on startserver file
-    c) go to browser and enter the url "localhost:8000"
+    a) double click on setup file <br />
+    b) to start server, double click on startserver file <br />
+    c) go to browser and enter the url "localhost:8000" <br />
 
 ### go to localhost:port/
 
@@ -47,14 +47,14 @@ run commands
    <p align="center">
      <img src="screens/update.png" width="450"/>
    </p>
-   a. upload picture
-    b. add skills
-    c. add interests
+   a. upload picture <br />
+    b. add skills <br />
+    c. add interests <br />
     
     <p align="center">
      <img src="screens/addskill.png" width="450"/>
     </p>
-    d. add position e.g Web  developer, accountant etc
+    d. add position e.g Web  developer, accountant etc <br />
     e. click on update button when you are done
 
 4) redirected to the dashboard
@@ -81,23 +81,23 @@ future.
 
 AbstractUser(Superclass)
 ------------------------------
--id
--first_name
--last_name
--username
--password
--email
+-id <br />
+-first_name <br />
+-last_name <br />
+-username <br />
+-password <br />
+-email <br />
 
 User(Subclass).
 ---------------
--is_admin
--picture
--position
--skills
--interest
--address
--date_of_birth
--mobile_number
+-is_admin <br />
+-picture <br />
+-position <br />
+-skills <br />
+-interest <br />
+-address <br />
+-date_of_birth <br />
+-mobile_number <br />
 
 ## Notes
 
