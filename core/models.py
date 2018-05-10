@@ -5,6 +5,9 @@ from django_mysql.models import JSONField
 
 # Create your models here.
 class User(AbstractUser):
+    """
+    Extending the AbstractUser class, which works similar to User model class, but has to be extended to be used.
+    """
     is_admin = models.BooleanField(default=False)
     mobile_number = models.CharField(max_length=15)
     address = models.TextField()

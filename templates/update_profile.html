@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load widget_tweaks %}
+{% load widget_tweaks static %}
 
 {% block content %}
 <div class="col-md-12 col-sm-12">
@@ -28,26 +28,66 @@
         <form method="POST" action="{% url 'update-profile' %}" enctype="multipart/form-data">
         <div class="row">
         <div class="col-md-4 form-group">
-          <div class="label">First Name</div>
+          <div class="label">First Name
+          {% if update_form.first_name.errors %}
+              {% for error in update_form.first_name.errors %}
+                  <div class="invalid-feedback" style="display:inline;">
+                    {{ error }}
+                  </div>
+              {% endfor %}
+          {% endif %}
+          </div>
           {% render_field update_form.first_name class+="form-control" %}
         </div>
         <div class="col-md-4 form-group">
-          <div class="label">Last Name</div>
+          <div class="label">Last Name
+          {% if update_form.last_name.errors %}
+              {% for error in update_form.last_name.errors %}
+                  <div class="invalid-feedback" style="display:inline;">
+                    {{ error }}
+                  </div>
+              {% endfor %}
+          {% endif %}
+          </div>
           {% render_field update_form.last_name class+="form-control" %}
         </div>
         <div class="col-md-4 form-group">
-          <div class="label">UserName</div>
+          <div class="label">UserName
+          {% if update_form.username.errors %}
+              {% for error in update_form.username.errors %}
+                  <div class="invalid-feedback" style="display:inline;">
+                    {{ error }}
+                  </div>
+              {% endfor %}
+          {% endif %}
+          </div>
           {% render_field update_form.username class+="form-control" %}
         </div>
       </div>
 
         <div class="row">
         <div class="col-md-4 form-group">
-          <div class="label">Email</div>
+          <div class="label">Email
+          {% if update_form.email.errors %}
+              {% for error in update_form.email.errors %}
+                  <div class="invalid-feedback" style="display:inline;">
+                    {{ error }}
+                  </div>
+              {% endfor %}
+          {% endif %}
+          </div>
           {% render_field update_form.email class+="form-control" %}
         </div>
         <div class="col-md-4 form-group">
-          <div class="label">Mobile Number</div>
+          <div class="label">Mobile Number
+          {% if update_form.mobile_number.errors %}
+              {% for error in update_form.mobile_number.errors %}
+                  <div class="invalid-feedback" style="display:inline;">
+                    {{ error }}
+                  </div>
+              {% endfor %}
+          {% endif %}
+          </div>
           {% render_field update_form.mobile_number class+="form-control" %}
         </div>
         <div class="col-md-4 form-group">
@@ -55,14 +95,32 @@
           {% render_field update_form.date_of_birth class+="form-control" type="date" %}
         </div>
 
+        <hr>
         <div class="col-md-12">
+          <div class="label">Address
+          {% if update_form.address.errors %}
+              {% for error in update_form.address.errors %}
+                  <div class="invalid-feedback" style="display:inline;">
+                    {{ error }}
+                  </div>
+              {% endfor %}
+          {% endif %}
+          </div>
           {% render_field update_form.address class+="form-control" rows="3" %}
         </div>
       </div>
       <hr>
       <div class="row col-md-12">
         <div class="col-md-4">
-          <label class="form-label-control">Position</label>
+          <label class="form-label-control">Position
+            {% if update_form.position.errors %}
+              {% for error in update_form.position.errors %}
+                  <div class="invalid-feedback" style="display:inline;">
+                    {{ error }}
+                  </div>
+              {% endfor %}
+          {% endif %}
+          </label>
           {% render_field update_form.position class="form_control" %}
         </div>
         <div class="col-md-8">
@@ -105,98 +163,6 @@
 {% endblock %}
 
 {% block extra_js %}
-<script>
-    $(document).ready(function(){
-        // get user detail from backend
-        var user = $("#user").text();
-        $.getJSON(user, function(data){
-          skills = data.skills;
-          interest = data.interest;
-          if (skills && skills.length){
-            renderSkills($('#skills-list'), skills);
-            renderInterest($("#interest"), interest);
-          };
-        $("input[name='skills']").attr('value', JSON.stringify(skills));
-        $("input[name='interest']").attr('value', JSON.stringify(interest));
-        });
-
-        //to add interest
-        $('#addInterest').on('click', function(){
-          var $interest = $("#interest"),
-              $interestForm = $('#interestForm');
-          $interestForm.html('<input type="text" id="intF"><span id="doneInt" class="fa fa-check"></span>');
-        });
-
-        // done with interest
-        $(document).on('click', '#doneInt', function(){
-          var intrst = $('#intF').val();
-          $('#intF').val('');
-          interest.push(intrst);
-          $("#interest").html('');
-          console.log(intrst)
-          renderInterest($("#interest"), interest);
-          $("input[name='interest']").attr('value', JSON.stringify(interest));
-          console.log($("#interest"));
-        });
-
-        function renderInterest(el, interest){
-          $.each(interest, function(key, val){
-            el.append('<span class="badge badge-pill badge-primary">' + val + '</span>')
-          });
-        };
-
-        //to start adding skills
-        $("#addSkill").on('click', function(){
-            renderSkillForm($('#skillForm'));
-        });
-
-        // to add more skills
-        $(document).on('click', '#add', function(){
-          var title = $('#title').val(),
-              level = $('#level').val();
-          skills.push({'title':title, 'level':level});
-          renderSkills($('#skills-list'), skills);
-          renderSkillForm($('#skillForm'));
-        });
-
-        // to end skill addition
-        $(document).on('click', '#done', function(){
-          var title = $('#title').val(),
-              level = $('#level').val();
-          skills.push({'title':title, 'level':level});
-          $('#skillForm').html('');
-          renderSkills($('#skills-list'), skills);
-          $("input[name='skills']").attr('value', JSON.stringify(skills));
-        });
-
-        // trigger the file input field when the camera icon is clicked
-        $("#upload").click(function () {
-          $("input[type='file']").trigger('click');
-        });
-
-        // preview uploaded picture
-        $('input[type="file"]').on('change', function() {
-          $("img").attr('src', URL.createObjectURL($(this)[0].files[0]));
-        });
-
-        // utility to render skills in a table
-        function renderSkills(el, iterable){
-          el.html('');
-          $.each(iterable, function(key, val){
-            el.append('<tr><td>' + val.title + '</td><td>' + val.level + '</td><td><span class="fa fa-trash"></span></td></tr>');
-          });
-        };
-
-        // utility to render skill form
-
-        function renderSkillForm(el){
-          el.html(
-            '<div class="col-md-4 form-group"><input type="text" name="title" class="form-control" id="title"></div>' +
-            '<div class="col-md-4 form-group"><input type="number" max="100" min="20" name="level" class="form-control" id="level"></div>' +
-            '<div class="col-md-4"><span class="fa fa-plus btn btn-primary" id="add"></span><span class="fa fa-check btn btn-primary pull-right" id="done"></span>'
-          );
-        };
-    });
-</script>
+<script src="{% static 'js/update.js' %}"></script>
 
 {% endblock %}

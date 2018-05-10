@@ -53,9 +53,8 @@ def user_detail(request, pk):
 @csrf_exempt
 @login_required
 def update_profile(request):
-    """
-    Update profile
-    """
+    user = request.user
+    serialized_user = UserSerializer(user, context={'request': request})
     if request.method == 'POST':
         if request.POST.get("_method") == "PUT":
             user = request.user
@@ -68,11 +67,9 @@ def update_profile(request):
                 return redirect(index)
             else:
                 # return the form object with validation errors
-                return render(request, 'update_profile.html', {'title': 'Update', 'update_form': update_form})
+                return render(request, 'update_profile.html', {'user': serialized_user.data, 'title': 'Update', 'update_form': update_form})
     elif request.method == 'GET':
-        user = request.user
         update_form = UpdateForm(instance=user)
-        serialized_user = UserSerializer(user, context={'request': request})
         return render(request, 'update_profile.html', {'user': serialized_user.data, 'title': 'Update', 'update_form': update_form})
     else:
         return HttpResponse(status=404)
@@ -120,7 +117,7 @@ def auth(request):
                 else:
                     return redirect(index)
             else:
-                return redirect(auth)
+                return render(request, 'login.html', {'login_form': login_form, 'error': True})
         else:
             return render(request, 'login.html', {'login_form': login_form})
     else:
@@ -130,7 +127,7 @@ def auth(request):
 
 def logout_user(request):
     logout(request)
-    return redirect(auth)
+    return redirect(index)
 
 
 @login_required

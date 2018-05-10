@@ -7,6 +7,9 @@
     <div class="card mb-3">
         <div class="card-body">
             <h4 class="card-title">Enter a valid login detail</h4>
+            {% if login_form.errors or error %}
+                <small class="invalid-feedback" style="display:block;">Invalid Username or password, please check the input and try again</small>
+            {% endif %}
             <hr>
             <form method="POST">
                 <div class="form-group">
