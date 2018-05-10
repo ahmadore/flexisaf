@@ -9,13 +9,11 @@
 ## How to deploy
 1) git clone https://github.com/ahmadore/flexisaf
 
-
 2) install python 3 and pip install -r requirements.txt
 
 3) start mysql server
 
 run commands
-
 
 4) python manage.py createdb
 
@@ -26,6 +24,11 @@ run commands
 ### start server with
 
 7) python manage.py runserver --port
+
+    ### optional for windows users
+    a) double click on setup file
+    b) to start server, double click on startserver file
+    c) go to browser and enter the url "localhost:8000"
 
 ### go to localhost:port/
 
