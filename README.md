@@ -1,10 +1,10 @@
 # FLEXISAF TECHNICAL ASSESSMENT
 
 ## Human Resource management app ##
-1) features include
-2) User accounts
-3) Dashboard
-4) Access Role
+features include:-
+1) User accounts
+2) Dashboard
+3) Access Role
 
 ## How to deploy
 1) git clone https://github.com/ahmadore/flexisaf
